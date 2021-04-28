@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scores",
+  "info": {
+    "name": "Score"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "value": {
+      "type": "integer"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}
