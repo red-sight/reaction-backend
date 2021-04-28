@@ -6,7 +6,6 @@ const { parseMultipartData, sanitizeEntity } = require("strapi-utils");
 
 module.exports = {
   async index(ctx) {
-    console.log(ctx.state.user);
     let entity = await strapi.services.score.create({
       ...ctx.request.body,
       user: ctx.state.user.id
