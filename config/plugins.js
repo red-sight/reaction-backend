@@ -5,14 +5,14 @@ module.exports = ({ env }) => ({
       host: env("SMTP_HOST", "smtp.gmail.com"),
       port: env("SMTP_PORT", 587),
       auth: {
-        user: "reactiongame.noreply@gmail.com",
-        pass: "i5cXenBoV9bLW69oLVY9Lz9Sweq"
+        user: env("GMAIL_LOGIN"),
+        pass: env("GMAIL_PASSWORD")
       }
       // ... any custom nodemailer options
     },
     settings: {
-      defaultFrom: "reactiongame.noreply@gmail.com",
-      defaultReplyTo: "reactiongame.noreply@gmail.com"
+      defaultFrom: env("GMAIL_LOGIN"),
+      defaultReplyTo: env("GMAIL_LOGIN")
     }
   }
 });
