@@ -4,9 +4,15 @@ jobs:
   connect:
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.5.2
+      - uses: garygrossgarten/github-action-ssh@v0.6.3
         with:
-          # Private SSH key to register in the SSH agent
-          ssh-private-key: ${{ secrets.SSH_KEY }}
-      - run: ls ~/.ssh
-      - run: ssh ${{ secrets.SSH_HOST }}
+          # Command to execute on the remote server.
+          command: 'echo "connected"'
+          # Hostname or IP address of the server.
+          host: ${{ secrets.SSH_HOST }}
+          # Username for authentication.
+          username: opc
+          # Port number of the server.
+          port: 22 # optional, default is 22
+          # File Location or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)
+          privateKey: ${{ secrets.SSH_KEY }}
