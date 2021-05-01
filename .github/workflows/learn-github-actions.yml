@@ -8,4 +8,4 @@ jobs:
       - uses: actions/setup-node@v1
       - run: echo "Env $MY_ENV"
         env:
-          MY_ENV: ${{ secrets.MY_ENV }}
+          MY_ENV: ${{ secrets.MY_REPO_ENV }}
