@@ -12,3 +12,4 @@ jobs:
           ssh-host: ${{ secrets.SSH_HOST }}
           # Port for key-scanning the server
           ssh-port: 22
+      - run: ssh ${{ secrets.SSH_HOST }}
