@@ -7,8 +7,8 @@ jobs:
       - uses: kielabokkie/ssh-key-and-known-hosts-action@v1.2.0
         with:
           # Private key required to access the host
-          ssh-private-key: $SSH_KEY
+          ssh-private-key: ${{ secrets.SSH_KEY }}
           # Hostname or IP to add to the known hosts file
-          ssh-host: $SSH_HOST
+          ssh-host: ${{ secrets.SSH_HOST }}
           # Port for key-scanning the server
           ssh-port: 22
