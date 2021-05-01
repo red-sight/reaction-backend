@@ -1,0 +1,15 @@
+name: ssh-setup
+on:
+  push:
+    branches:
+      - main
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: garygrossgarten/github-action-ssh@v0.6.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: opc
+          privateKey: ${{ secrets.SSH_KEY }}
+          command: "whoami"
