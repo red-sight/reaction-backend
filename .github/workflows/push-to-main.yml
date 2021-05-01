@@ -9,7 +9,8 @@ jobs:
     steps:
       - run: |
           mkdir -p ~/.ssh &&
-          echo "${{ secrets.SSH_key }}" >> ~/.ssh/id_dsa &&
+          echo "${{ secrets.SSH_KEY }}" >> ~/.ssh/id_dsa &&
           chmod 600 ~/.ssh/id_dsa &&
           echo "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config &&
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts &&
           ssh -i ~/.ssh/id_dsa -o UserKnownHostsFile=/github/home/.ssh/known_hosts -tt opc@${{ secrets.SSH_HOST }} 'whoami'
