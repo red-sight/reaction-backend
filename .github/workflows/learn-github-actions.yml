@@ -1,9 +1,11 @@
 name: learn-github-actions
 on: [push]
 jobs:
-  check-bats-version:
+  echo-env:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - run: echo "Env ${{ secrets.MY_ENV }}"
+      - run: echo "Env $MY_ENV"
+        env:
+          MY_ENV: ${{ secrets.MY_ENV }}
