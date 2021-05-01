@@ -5,11 +5,11 @@ on:
       - main
 jobs:
   connect:
-    runs-on: ubuntu-latest
+    runs-on: alpine
     steps:
-      - uses: garygrossgarten/github-action-ssh@v0.6.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: opc
-          privateKey: ${{ secrets.SSH_KEY }}
-          command: "whoami"
+      - run: apk add --no-cache rsync openssh
+      - run: mkdir -p ~/.ssh
+      - run: echo "${{ secrets.SSH_key }}" >> ~/.ssh/id_dsa
+      - run: chmod 600 ~/.ssh/id_dsa
+      - run: echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+      - run: ssh ${{ secrets.SSH_HOST }} 'whoami'
