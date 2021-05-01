@@ -7,9 +7,8 @@ jobs:
   connect:
     runs-on: ubuntu-latest
     steps:
-      - run: apk add --no-cache rsync openssh
       - run: mkdir -p ~/.ssh
       - run: echo "${{ secrets.SSH_key }}" >> ~/.ssh/id_dsa
       - run: chmod 600 ~/.ssh/id_dsa
-      - run: echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+      - run: echo "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
       - run: ssh ${{ secrets.SSH_HOST }} 'whoami'
