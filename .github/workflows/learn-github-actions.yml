@@ -1,11 +1,14 @@
-name: learn-github-actions
+name: ssh-setup
 on: [push]
-jobs:
-  echo-env:
+jobs: 
+  connect:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-      - run: echo "Env $MY_ENV"
-        env:
-          MY_ENV: ${{ secrets.MY_REPO_ENV }}
+      - uses: kielabokkie/ssh-key-and-known-hosts-action@v1.2.0
+        with:
+          # Private key required to access the host
+          ssh-private-key: $SSH_KEY
+          # Hostname or IP to add to the known hosts file
+          ssh-host: $SSH_HOST
+          # Port for key-scanning the server
+          ssh-port: 22
