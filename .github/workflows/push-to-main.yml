@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   connect:
-    runs-on: alpine
+    runs-on: ubuntu-latest
     steps:
       - run: apk add --no-cache rsync openssh
       - run: mkdir -p ~/.ssh
