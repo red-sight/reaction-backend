@@ -12,4 +12,4 @@ jobs:
           echo "${{ secrets.SSH_key }}" >> ~/.ssh/id_dsa
           chmod 600 ~/.ssh/id_dsa
           echo "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-          ssh ${{ secrets.SSH_HOST }} 'whoami'
+          ssh opc@${{ secrets.SSH_HOST }} 'whoami'
