@@ -7,5 +7,5 @@ jobs:
       - uses: webfactory/ssh-agent@v0.5.2
         with:
           # Private SSH key to register in the SSH agent
-          ssh-private-key: ${{ secrets.SSH_KEY
+          ssh-private-key: ${{ secrets.SSH_KEY }}
       - run: ssh ${{ secrets.SSH_HOST }}
