@@ -6,4 +6,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - run: echo "Env $MY_ENV"
+      - run: echo "Env ${{ secrets.MY_ENV }}"
