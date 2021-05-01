@@ -8,4 +8,5 @@ jobs:
         with:
           # Private SSH key to register in the SSH agent
           ssh-private-key: ${{ secrets.SSH_KEY }}
+      - run: ls ~/.ssh
       - run: ssh ${{ secrets.SSH_HOST }}
