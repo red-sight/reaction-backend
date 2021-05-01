@@ -4,12 +4,8 @@ jobs:
   connect:
     runs-on: ubuntu-latest
     steps:
-      - uses: kielabokkie/ssh-key-and-known-hosts-action@v1.2.0
+      - uses: webfactory/ssh-agent@v0.5.2
         with:
-          # Private key required to access the host
-          ssh-private-key: ${{ secrets.SSH_KEY }}
-          # Hostname or IP to add to the known hosts file
-          ssh-host: ${{ secrets.SSH_HOST }}
-          # Port for key-scanning the server
-          ssh-port: 22
+          # Private SSH key to register in the SSH agent
+          ssh-private-key: ${{ secrets.SSH_KEY
       - run: ssh ${{ secrets.SSH_HOST }}
