@@ -24,4 +24,4 @@ jobs:
             StrictHostKeyChecking no
           END
       - name: Stop the server
-        run: ssh staging 'sudo systemctl stop my-application'
+        run: ssh staging 'whoami'
