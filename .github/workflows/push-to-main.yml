@@ -6,6 +6,10 @@ on:
 jobs:
   connect:
     runs-on: ubuntu-latest
+    env:
+      SSH_USER: "opc"
+      SSH_KEY: ${{ secrets.SSH_KEY }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
     steps:
       - run: |
           mkdir -p ~/.ssh/
@@ -18,7 +22,3 @@ jobs:
             IdentityFile ~/.ssh/staging.key
             StrictHostKeyChecking no
           END
-          env:
-            SSH_USER: "opc"
-            SSH_KEY: ${{ secrets.SSH_KEY }}
-            SSH_HOST: ${{ secrets.SSH_HOST }}
