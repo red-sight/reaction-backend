@@ -23,5 +23,8 @@ jobs:
             IdentityFile ~/.ssh/staging.key
             StrictHostKeyChecking no
           END
-      - name: Stop the server
-        run: ssh staging 'whoami'
+      - name: Pull the updates
+        run: ssh staging '
+          cd ~/reaction-backend &&
+          git checkout main &&
+          git pull'
