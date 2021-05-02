@@ -10,6 +10,12 @@ jobs:
       SSH_USER: "opc"
       SSH_KEY: ${{ secrets.SSH_KEY }}
       SSH_HOST: ${{ secrets.SSH_HOST }}
+      DB_HOST=: ${{ secrets.DB_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      GMAIL_LOGIN: ${{ secrets.GMAIL_LOGIN }}
+      GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
     steps:
       - name: Setup SSH access
         run: |
@@ -25,7 +31,16 @@ jobs:
           END
       - name: Pull the updates
         run: ssh staging '
+          export NODE_ENV=production
+          export DB_HOST="$DB_HOST"
+          export DB_NAME="$DB_NAME"
+          export DB_USER="$DB_USER"
+          export DB_PASSWORD="$DB_PASSWORD"
+          export GMAIL_LOGIN="$GMAIL_LOGIN"
+          export GMAIL_PASSWORD="$GMAIL_PASSWORD"
           cd ~/reaction-backend &&
           git checkout main &&
           git pull &&
-          npm install'
+          npm install &&
+          npm run build &&
+          npm start'
