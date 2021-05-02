@@ -27,4 +27,5 @@ jobs:
         run: ssh staging '
           cd ~/reaction-backend &&
           git checkout main &&
-          git pull'
+          git pull &&
+          npm install'
