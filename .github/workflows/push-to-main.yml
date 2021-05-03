@@ -31,7 +31,7 @@ jobs:
           END
       - name: Pull the updates
         run: ssh staging '
-          source ~/.bash_profile &&
+          export PATH="/root/.nvm/versions/node/v14.16.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin" &&
           whoami &&
           nvm -v &&
           export NODE_ENV=production &&
