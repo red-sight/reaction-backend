@@ -34,7 +34,7 @@ jobs:
           export DB_URI="${{ secrets.DB_URI }}" &&
           export GMAIL_LOGIN=${{ secrets.GMAIL_LOGIN }} &&
           export GMAIL_PASSWORD=${{ secrets.GMAIL_PASSWORD }} &&
-          export SERVER_URL="http://reaction-game.ru/api" &&
+          export SERVER_URL="http://reaction-game.ru" &&
           cd ~/reaction-backend &&
           git checkout main &&
           git pull &&
