@@ -32,6 +32,7 @@ jobs:
       - name: Pull the updates
         run: ssh staging '
           whoami &&
+          export PATH=$PATH:/root/.nvm/versions/node/v14.16.1/bin &&
           echo $PATH &&
           export NODE_ENV=production &&
           export DB_HOST=$DB_HOST &&
