@@ -29,7 +29,7 @@ jobs:
       - name: Pull the updates
         run: ssh staging '
           export PATH=$PATH:/root/.nvm/versions/node/v14.16.1/bin &&
-          pm2 stop app &&
+          pm2 stop all &&
           export NODE_ENV=production &&
           export DB_URI="${{ secrets.DB_URI }}" &&
           export GMAIL_LOGIN=${{ secrets.GMAIL_LOGIN }} &&
