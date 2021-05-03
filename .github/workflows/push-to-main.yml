@@ -1,4 +1,4 @@
-name: ssh-setup
+name: deploy
 on:
   push:
     branches:
@@ -6,11 +6,38 @@ on:
 jobs:
   connect:
     runs-on: ubuntu-latest
+    env:
+      SSH_USER: "root"
+      SSH_KEY: ${{ secrets.SSH_KEY }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      DB_URI: ${{ secrets.DB_URI }}
+      GMAIL_LOGIN: ${{ secrets.GMAIL_LOGIN }}
+      GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
     steps:
-      - run: |
-          mkdir -p ~/.ssh &&
-          echo "${{ secrets.SSH_KEY }}" >> ~/.ssh/id_dsa &&
-          chmod 600 ~/.ssh/id_dsa &&
-          echo "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config &&
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts &&
-          ssh -i ~/.ssh/id_dsa -o UserKnownHostsFile=/github/home/.ssh/known_hosts -tt opc@${{ secrets.SSH_HOST }} 'whoami'
+      - name: Setup SSH access
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+      - name: Pull the updates
+        run: ssh staging '
+          pm2 stop app &&
+          export PATH=$PATH:/root/.nvm/versions/node/v14.16.1/bin &&
+          export NODE_ENV=production &&
+          export DB_URI="${{ secrets.DB_URI }}" &&
+          export GMAIL_LOGIN=${{ secrets.GMAIL_LOGIN }} &&
+          export GMAIL_PASSWORD=${{ secrets.GMAIL_PASSWORD }} &&
+          export SERVER_URL="http://reaction-game.ru:1337" &&
+          cd ~/reaction-backend &&
+          git checkout main &&
+          git pull &&
+          npm install &&
+          npm run build &&
+          pm2 start ecosystem.config.js'
