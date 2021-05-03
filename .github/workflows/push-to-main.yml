@@ -41,6 +41,8 @@ jobs:
           cd ~/reaction-backend &&
           git checkout main &&
           git pull &&
+          node -v &&
+          npm -v &&
           npm install &&
           npm run build &&
           npm start'
