@@ -30,12 +30,11 @@ jobs:
         run: ssh staging '
           export PATH=$PATH:/root/.nvm/versions/node/v14.16.1/bin &&
           export NODE_ENV=production &&
-          export DB_URI=$DB_URI &&
+          export DB_URI="${{ secrets.DB_URI }}" &&
           export GMAIL_LOGIN=$GMAIL_LOGIN &&
           export GMAIL_PASSWORD=$GMAIL_PASSWORD &&
           export SERVER_URL="http://reaction-game.ru:1337" &&
           cd ~/reaction-backend &&
           git checkout ci-test &&
           git pull &&
-          echo "${{ secrets.DB_URI }}" > db_uri &&
           npm start'
