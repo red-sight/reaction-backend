@@ -1,8 +1,8 @@
-name: ssh-setup
+name: deploy
 on:
   push:
     branches:
-      - ci-test
+      - main
 jobs:
   connect:
     runs-on: ubuntu-latest
@@ -28,6 +28,7 @@ jobs:
           END
       - name: Pull the updates
         run: ssh staging '
+          pm2 stop app &&
           export PATH=$PATH:/root/.nvm/versions/node/v14.16.1/bin &&
           export NODE_ENV=production &&
           export DB_URI="${{ secrets.DB_URI }}" &&
@@ -35,7 +36,7 @@ jobs:
           export GMAIL_PASSWORD=${{ secrets.GMAIL_PASSWORD }} &&
           export SERVER_URL="http://reaction-game.ru:1337" &&
           cd ~/reaction-backend &&
-          git checkout ci-test &&
+          git checkout main &&
           git pull &&
           npm install &&
           npm run build &&
